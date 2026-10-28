@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Counter.Views.CounterCreatePage"
+             xmlns:models="clr-namespace:Counter.Models"
+             x:DataType="models:Counter"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <models:Counter/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="Auto,*">
+        <Grid ColumnDefinitions="*,Auto, Auto" Margin="10">
+            <Label Text="{Binding CreateCounterTitle}" 
+           VerticalOptions="Center"
+           Margin="20,0,0,0"
+           FontAttributes="Bold"
+           FontSize="22"/>
+            <Button x:Name="BackButton"
+                    Text="{Binding GoBackButtonText}"
+                    Background="Blue"
+                    VerticalOptions="Center"
+                    Grid.Column="1"
+                    Clicked="OnBackButton_Clicked" />
+        </Grid>
+        
+        <AbsoluteLayout HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Grid.Row="1">
+            <Border Stroke="DimGray"
+                StrokeThickness="2"
+                AbsoluteLayout.LayoutBounds="0.5,0.5,300,360"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                WidthRequest="300" 
+                HeightRequest="360">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+                <Grid x:Name="ColorPreview"
+                      BackgroundColor="{Binding Color}"
+                      RowDefinitions="Auto,Auto,150,Auto">
+                    <Entry x:Name="Name"
+                       Placeholder="{Binding CreateNamePlaceholder}"
+                       Text="{Binding Name}"
+                       Keyboard="Text"
+                       Grid.Row="0"/>
+
+                    <Entry x:Name="Value"
+                       Keyboard="Numeric" 
+                       Text="{Binding DefaultValue}"
+                       Grid.Row="1" 
+                       Margin="5" 
+                       HorizontalOptions="Center"
+                       FontSize="50"
+                       BackgroundColor="Transparent"
+                       TextChanged="OnDefaultValue_TextChanged"/>
+
+                    <Grid Grid.Row="2"
+                          ColumnDefinitions="25,*,40"
+                          RowDefinitions="50,50,50"
+                          Margin="10,0"
+                          ColumnSpacing="5">
+                        <Label x:Name="RedLabel" Text="R" Grid.Row="0" VerticalOptions="Center" />
+                        <Slider x:Name="RedSlider" Grid.Row="0" Grid.Column="1"
+                                Minimum="0" Maximum="255" Value="240"
+                                MinimumTrackColor="Red" MaximumTrackColor="LightGray" ThumbColor="Red" />
+
+                        <Label x:Name="GreenLabel" Text="G" Grid.Row="1" VerticalOptions="Center" />
+                        <Slider x:Name="GreenSlider" Grid.Row="1" Grid.Column="1"
+                                Minimum="0" Maximum="255" Value="248"
+                                MinimumTrackColor="Green" MaximumTrackColor="LightGray" ThumbColor="Green" />
+
+                        <Label x:Name="BlueLabel" Text="B" Grid.Row="2" VerticalOptions="Center" />
+                        <Slider x:Name="BlueSlider" Grid.Row="2" Grid.Column="1"
+                                Minimum="0" Maximum="255" Value="255"
+                                MinimumTrackColor="Blue" MaximumTrackColor="LightGray" ThumbColor="Blue" />
+                    </Grid>
+
+                    <Button Text="{Binding CreateButtonText}"
+                        Grid.Row="3"
+                        Clicked="Create_Counter"
+                        Margin="5,0,5,10"/>
+                </Grid>
+            </Border>
+
+            <Label Text="{Binding ValidationErrorMessage}"
+                       Grid.Row="3"
+                       TextColor="Red"
+                       HeightRequest="50"
+                       WidthRequest="300"
+                       AbsoluteLayout.LayoutBounds="0.5, 0.5, 300, 50"
+                       AbsoluteLayout.LayoutFlags="PositionProportional"
+                       TranslationY="210"
+                       HorizontalOptions="Center"
+                       InputTransparent="True"
+                       HorizontalTextAlignment="Center"/>
+        </AbsoluteLayout>
+    </Grid>
+</ContentPage>
